@@ -1,0 +1,65 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "E:\...\XpoGate\", "XpoGate", "{76865D00-EB4C-4DDA-9367-DAB99E5175DC}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.VirtualPath = "/XpoGate"
+		Debug.AspNetCompiler.PhysicalPath = ".\XpoGate\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\XpoGate\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/XpoGate"
+		Release.AspNetCompiler.PhysicalPath = ".\XpoGate\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\XpoGate\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "2224"
+		DefaultWebSiteLanguage = "Visual C#"
+	TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApplication", "TestApplication\TestApplication.csproj", "{C155E996-4804-4146-9493-134FC3BDC993}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Release|.NET = Release|.NET
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76865D00-EB4C-4DDA-9367-DAB99E5175DC}.Debug|.NET.ActiveCfg = Debug|.NET
+		{76865D00-EB4C-4DDA-9367-DAB99E5175DC}.Debug|.NET.Build.0 = Debug|.NET
+		{76865D00-EB4C-4DDA-9367-DAB99E5175DC}.Debug|Any CPU.ActiveCfg = Debug|.NET
+		{76865D00-EB4C-4DDA-9367-DAB99E5175DC}.Debug|Mixed Platforms.ActiveCfg = Debug|.NET
+		{76865D00-EB4C-4DDA-9367-DAB99E5175DC}.Debug|Mixed Platforms.Build.0 = Debug|.NET
+		{76865D00-EB4C-4DDA-9367-DAB99E5175DC}.Release|.NET.ActiveCfg = Debug|.NET
+		{76865D00-EB4C-4DDA-9367-DAB99E5175DC}.Release|.NET.Build.0 = Debug|.NET
+		{76865D00-EB4C-4DDA-9367-DAB99E5175DC}.Release|Any CPU.ActiveCfg = Debug|.NET
+		{76865D00-EB4C-4DDA-9367-DAB99E5175DC}.Release|Mixed Platforms.ActiveCfg = Debug|.NET
+		{76865D00-EB4C-4DDA-9367-DAB99E5175DC}.Release|Mixed Platforms.Build.0 = Debug|.NET
+		{C155E996-4804-4146-9493-134FC3BDC993}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{C155E996-4804-4146-9493-134FC3BDC993}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C155E996-4804-4146-9493-134FC3BDC993}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C155E996-4804-4146-9493-134FC3BDC993}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C155E996-4804-4146-9493-134FC3BDC993}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C155E996-4804-4146-9493-134FC3BDC993}.Release|.NET.ActiveCfg = Release|Any CPU
+		{C155E996-4804-4146-9493-134FC3BDC993}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C155E996-4804-4146-9493-134FC3BDC993}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C155E996-4804-4146-9493-134FC3BDC993}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C155E996-4804-4146-9493-134FC3BDC993}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
