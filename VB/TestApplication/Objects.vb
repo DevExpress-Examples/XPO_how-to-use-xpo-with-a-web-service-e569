@@ -1,41 +1,50 @@
-Imports Microsoft.VisualBasic
 Imports System
 Imports DevExpress.Xpo
-Imports DevExpress.Xpo.DB
 
 Namespace ContactManagement
+
     Public Class EditObjectEventArgs
         Inherits EventArgs
-        Private objectToEdit_Renamed As Object
+
+        Private objectToEditField As Object
+
         Public Sub New(ByVal objectToEdit As Object)
-            Me.objectToEdit_Renamed = objectToEdit
+            objectToEditField = objectToEdit
         End Sub
-        Public ReadOnly Property ObjectToEdit() As Object
+
+        Public ReadOnly Property ObjectToEdit As Object
             Get
-                Return objectToEdit_Renamed
+                Return objectToEditField
             End Get
         End Property
     End Class
-    Public Delegate Sub InsertObjectEventHandler(ByVal sender As Object)
-    Public Delegate Sub EditObjectEventHandler(ByVal sender As Object, ByVal e As EditObjectEventArgs)
 
+    Public Delegate Sub InsertObjectEventHandler(ByVal sender As Object)
+
+    Public Delegate Sub EditObjectEventHandler(ByVal sender As Object, ByVal e As EditObjectEventArgs)
 
     Public Class Address
         Inherits XPObject
-        <Association("PersonAddresses")> _
+
+        <Association("PersonAddresses")>
         Public Owner As Person
+
         Public City As String = ""
+
         Public Street As String = ""
-        Public ReadOnly Property IsDefault() As Boolean
+
+        Public ReadOnly Property IsDefault As Boolean
             Get
-                Return Not Owner Is Nothing AndAlso Owner.DefaultAddress Is Me
+                Return Owner IsNot Nothing AndAlso Owner.DefaultAddress Is Me
             End Get
         End Property
+
         Public Sub New(ByVal otherAddress As Address)
             MyBase.New(otherAddress.Session)
-            Me.City = otherAddress.City
-            Me.Street = otherAddress.Street
+            City = otherAddress.City
+            Street = otherAddress.Street
         End Sub
+
         Public Sub New(ByVal session As Session)
             MyBase.New(session)
         End Sub
@@ -43,91 +52,117 @@ Namespace ContactManagement
 
     Public Class Attachment
         Inherits XPObject
+
         Public Name As String = ""
-        <Association("PersonAttachments")> _
+
+        <Association("PersonAttachments")>
         Public Owner As Person
-        Private document_Renamed As XPDelayedProperty = New XPDelayedProperty()
-        <Delayed("document")> _
-        Public Property Document() As Byte()
+
+        Private documentField As XPDelayedProperty = New XPDelayedProperty()
+
+        <Delayed("document")>
+        Public Property Document As Byte()
             Get
-                Return CType(document_Renamed.Value, Byte())
+                Return CType(documentField.Value, Byte())
             End Get
+
             Set(ByVal value As Byte())
-                document_Renamed.Value = value
+                documentField.Value = value
             End Set
         End Property
+
         '		public Attachment() : base() {}
         Public Sub New(ByVal session As Session)
             MyBase.New(session)
         End Sub
     End Class
 
-    <Persistent("T_Person")> _
+    <Persistent("T_Person")>
     Public MustInherit Class Person
         Inherits XPObject
+
         Public PhoneNumber As String = ""
-        <Aggregated> _
+
+        <Aggregated>
         Public DefaultAddress As Address = Nothing
-        <Aggregated, Association("PersonAddresses", GetType(Address))> _
-        Public ReadOnly Property Addresses() As XPCollection
+
+        <Aggregated>
+        <Association("PersonAddresses", GetType(Address))>
+        Public ReadOnly Property Addresses As XPCollection
             Get
                 Return GetCollection("Addresses")
             End Get
         End Property
-        <Aggregated, Association("PersonAttachments", GetType(Attachment))> _
-        Public ReadOnly Property Attachments() As XPCollection
+
+        <Aggregated>
+        <Association("PersonAttachments", GetType(Attachment))>
+        Public ReadOnly Property Attachments As XPCollection
             Get
                 Return GetCollection("Attachments")
             End Get
         End Property
-        <Persistent("CreatedOn")> _
-        Private mCreatedOn As DateTime = DateTime.Today
-        Public ReadOnly Property CreatedOn() As DateTime
+
+        <Persistent("CreatedOn")>
+        Private mCreatedOn As Date = Date.Today
+
+        Public ReadOnly Property CreatedOn As Date
             Get
                 Return mCreatedOn
             End Get
         End Property
-        Public MustOverride ReadOnly Property DisplayName() As String
+
+        Public MustOverride ReadOnly Property DisplayName As String
+
         Public Sub New(ByVal session As Session)
             MyBase.New(session)
         End Sub
     End Class
 
-    <MapInheritance(MapInheritanceType.OwnTable)> _
+    <MapInheritance(MapInheritanceType.OwnTable)>
     Public Class Contact
         Inherits Person
+
         Public FirstName As String = ""
+
         Public LastName As String = ""
+
         Public Email As String = ""
-        Private employer_Renamed As Company = Nothing
-        <Persistent("CompanyID")> _
-        Public Property Employer() As Company
+
+        Private employerField As Company = Nothing
+
+        <Persistent("CompanyID")>
+        Public Property Employer As Company
             Get
-                Return employer_Renamed
+                Return employerField
             End Get
+
             Set(ByVal value As Company)
-                employer_Renamed = value
-                If (Not IsLoading) AndAlso Not employer_Renamed Is Nothing AndAlso Not employer_Renamed.DefaultAddress Is Nothing Then
+                employerField = value
+                If Not IsLoading AndAlso employerField IsNot Nothing AndAlso employerField.DefaultAddress IsNot Nothing Then
                     Addresses.Remove(DefaultAddress)
-                    DefaultAddress = New Address(employer_Renamed.DefaultAddress)
+                    DefaultAddress = New Address(employerField.DefaultAddress)
                     Addresses.Add(DefaultAddress)
                 End If
             End Set
         End Property
-        <Persistent> _
-        Public ReadOnly Property FullName() As String
+
+        <Persistent>
+        Public ReadOnly Property FullName As String
             Get
                 Return String.Format("{0}, {1}", LastName, FirstName)
             End Get
         End Property
-        Public Overrides ReadOnly Property DisplayName() As String
+
+        Public Overrides ReadOnly Property DisplayName As String
             Get
                 Return FullName
             End Get
         End Property
+
         Public Sub New(ByVal session As Session)
             MyBase.New(session)
         End Sub
+
         Public Sub New(ByVal session As Session, ByVal employer As Company)
             MyBase.New(session)
             Me.Employer = employer
@@ -136,28 +171,32 @@ Namespace ContactManagement
 
     Public Class RequiredPropertyValueMissing
         Inherits Exception
+
         Public Sub New(ByVal theObject As XPObject, ByVal propertyName As String)
             MyBase.New(String.Format("The {0} property of the {1} object with id {2} must have a value", propertyName, theObject.GetType().Name, theObject.Oid))
         End Sub
     End Class
 
-    <MapInheritance(MapInheritanceType.OwnTable)> _
+    <MapInheritance(MapInheritanceType.OwnTable)>
     Public Class Company
         Inherits Person
+
         Public Name As String = ""
+
         Public WebSite As String = ""
-        Public Overrides ReadOnly Property DisplayName() As String
+
+        Public Overrides ReadOnly Property DisplayName As String
             Get
                 Return Name
             End Get
         End Property
+
         Protected Overrides Sub OnSaving()
-            If (Not IsDeleted) Then
-                If Name = "" Then
-                    Throw New RequiredPropertyValueMissing(Me, "Name")
-                End If
+            If Not IsDeleted Then
+                If Equals(Name, "") Then Throw New RequiredPropertyValueMissing(Me, "Name")
             End If
         End Sub
+
         Public Sub New(ByVal session As Session)
             MyBase.New(session)
         End Sub
